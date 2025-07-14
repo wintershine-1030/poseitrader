@@ -2798,9 +2798,39 @@
       if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", function () {
           console.log("DOM loaded, accordion ready");
+          initAccordionEventListeners();
         });
       } else {
         console.log("DOM already loaded, accordion ready");
+        initAccordionEventListeners();
+      }
+      
+      // Also try after delays to ensure React has rendered
+      setTimeout(initAccordionEventListeners, 1000);
+      setTimeout(initAccordionEventListeners, 3000);
+      
+      // Function to add event listeners to accordion buttons
+      function initAccordionEventListeners() {
+        console.log("initAccordionEventListeners called");
+        var buttons = document.querySelectorAll('.posei-topic-header');
+        console.log("Found", buttons.length, "accordion buttons");
+        
+        buttons.forEach(function(button, index) {
+          // Remove existing listeners to prevent duplicates
+          button.removeEventListener('click', button.clickHandler);
+          
+          // Add click event listener
+          button.clickHandler = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log("Button clicked:", index);
+            toggleAccordion(this);
+          };
+          
+          button.addEventListener('click', button.clickHandler);
+        });
+        
+        console.log("Event listeners added to", buttons.length, "buttons");
       }
     </script>
     <script>
