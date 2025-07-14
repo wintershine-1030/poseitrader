@@ -328,90 +328,110 @@
       }
     </style>
     <script>
-      setTimeout(function () {
+      function initializeAccordion() {
         var topics = [
-    {
-      title: "Where Strategy Meets Execution",
-      content: "Discover how our open-source platform bridges the gap between backtesting and live trading. We've built PoseiTrader to give quant traders unprecedented control - test complex strategies with confidence and deploy them to real markets without code changes. The event-driven engine and portfolio-wide analysis tools provide the accuracy serious traders demand."
-    },
-    {
-      title: "The Flexibility You Need",
-      content: "PoseiTrader isn't just powerful - it's adaptable. Every component is designed to work together seamlessly while giving you room to customize. Whether you're running simple strategies or complex multi-asset portfolios, our framework adjusts to your needs, not the other way around."
-    },
-    {
-      title: "Practical Insights for Real Trading",
-      content: "This blog cuts through complexity with actionable knowledge. We break down advanced concepts, share implementation examples, and highlight features that deliver real trading edge. Our documentation covers the technical details - here we focus on applying that knowledge effectively."
-    }
-  ];
+          {
+            title: "Where Strategy Meets Execution",
+            content: "Discover how our open-source platform bridges the gap between backtesting and live trading. We've built PoseiTrader to give quant traders unprecedented control - test complex strategies with confidence and deploy them to real markets without code changes. The event-driven engine and portfolio-wide analysis tools provide the accuracy serious traders demand."
+          },
+          {
+            title: "The Flexibility You Need",
+            content: "PoseiTrader isn't just powerful - it's adaptable. Every component is designed to work together seamlessly while giving you room to customize. Whether you're running simple strategies or complex multi-asset portfolios, our framework adjusts to your needs, not the other way around."
+          },
+          {
+            title: "Practical Insights for Real Trading",
+            content: "This blog cuts through complexity with actionable knowledge. We break down advanced concepts, share implementation examples, and highlight features that deliver real trading edge. Our documentation covers the technical details - here we focus on applying that knowledge effectively."
+          }
+        ];
 
-  function insertAccordion() {
-    // Remove any existing accordion
-    var old = document.querySelector('.posei-topic-wrap');
-    if (old) old.parentNode.removeChild(old);
+        function insertAccordion() {
+          // Remove any existing accordion
+          var old = document.querySelector('.posei-topic-wrap');
+          if (old) old.parentNode.removeChild(old);
 
-    // Find the target <p>
-    var allPs = document.getElementsByTagName('p');
-    var targetP = null;
-    for (var i = 0; i < allPs.length; i++) {
-      if (allPs[i].textContent && allPs[i].textContent.indexOf("Welcome to the PoseiTrader Blog") !== -1) {
-        targetP = allPs[i];
-        break;
+          // Find the target <p>
+          var allPs = document.getElementsByTagName('p');
+          var targetP = null;
+          for (var i = 0; i < allPs.length; i++) {
+            if (allPs[i].textContent && allPs[i].textContent.indexOf("Welcome to the PoseiTrader Blog") !== -1) {
+              targetP = allPs[i];
+              break;
+            }
+          }
+          if (!targetP) return false;
+
+          var wrap = document.createElement('div');
+          wrap.className = 'posei-topic-wrap';
+
+          topics.forEach(function(topic) {
+            var topicDiv = document.createElement('div');
+            topicDiv.className = 'posei-topic';
+
+            // Create button
+            var btn = document.createElement('button');
+            btn.className = 'posei-topic-header';
+            btn.type = 'button';
+            btn.setAttribute('aria-expanded', 'false');
+            btn.innerHTML = '<span>' + topic.title + '</span><span class="posei-topic-arrow">&#9660;</span>';
+
+            // Create content
+            var contentDiv = document.createElement('div');
+            contentDiv.className = 'posei-topic-content';
+            contentDiv.innerHTML = topic.content;
+
+            topicDiv.appendChild(btn);
+            topicDiv.appendChild(contentDiv);
+            wrap.appendChild(topicDiv);
+          });
+
+          // Insert after the target <p>
+          if (targetP.nextSibling) {
+            targetP.parentNode.insertBefore(wrap, targetP.nextSibling);
+          } else {
+            targetP.parentNode.appendChild(wrap);
+          }
+
+          // Add click event listeners to each button
+          var buttons = wrap.querySelectorAll('.posei-topic-header');
+          buttons.forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              var topicDiv = this.parentNode;
+              var isOpen = topicDiv.classList.toggle('open');
+              this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+              console.log('Accordion toggled:', this.querySelector('span').textContent, isOpen);
+            });
+          });
+
+          return true;
+        }
+
+        // Try to insert accordion immediately
+        if (!insertAccordion()) {
+          // If not found, wait for DOM changes
+          var observer = new MutationObserver(function() {
+            if (insertAccordion()) {
+              observer.disconnect();
+              console.log("Accordion inserted successfully!");
+            }
+          });
+          observer.observe(document.body, { childList: true, subtree: true });
+        } else {
+          console.log("Accordion inserted immediately!");
+        }
       }
-    }
-    if (!targetP) return false;
 
-    var wrap = document.createElement('div');
-    wrap.className = 'posei-topic-wrap';
-
-    topics.forEach(function(topic) {
-      var topicDiv = document.createElement('div');
-      topicDiv.className = 'posei-topic';
-
-      // Create button
-      var btn = document.createElement('button');
-      btn.className = 'posei-topic-header';
-      btn.type = 'button';
-      btn.setAttribute('aria-expanded', 'false');
-      btn.innerHTML = '<span>' + topic.title + '</span><span class="posei-topic-arrow">&#9660;</span>';
-
-      // Create content
-      var contentDiv = document.createElement('div');
-      contentDiv.className = 'posei-topic-content';
-      contentDiv.innerHTML = topic.content;
-
-      topicDiv.appendChild(btn);
-      topicDiv.appendChild(contentDiv);
-      wrap.appendChild(topicDiv);
-    });
-
-    // Insert after the target <p>
-    if (targetP.nextSibling) {
-      targetP.parentNode.insertBefore(wrap, targetP.nextSibling);
-    } else {
-      targetP.parentNode.appendChild(wrap);
-    }
-
-    wrap.addEventListener('click', function(e) {
-      var btn = e.target.closest('.posei-topic-header');
-      if (btn && wrap.contains(btn)) {
-        var topicDiv = btn.parentNode;
-        var isOpen = topicDiv.classList.toggle('open');
-        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        // console.log('Accordion toggled:', btn.querySelector('span').textContent, isOpen);
+      // Initialize when DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeAccordion);
+      } else {
+        initializeAccordion();
       }
-    });
 
-    return true;
-  }
-
-  if (!insertAccordion()) {
-    var observer = new MutationObserver(function() {
-      if (insertAccordion()) observer.disconnect();
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-  }
-  console.log("Accordion test!");
-      }, 2000); // 1.5s delay to ensure hydration is done
+      // Also try after a delay to ensure React hydration is complete
+      setTimeout(initializeAccordion, 1000);
+      setTimeout(initializeAccordion, 3000);
     </script>
   </head>
   <body class="__className_e8ce0c">
@@ -2913,18 +2933,4 @@
       ]);
     </script>
   </body>
-  <script>
-    function bindAccordionButtonEvents() {
-      var buttons = document.querySelectorAll('.posei-topic-header');
-      buttons.forEach(function(btn) {
-        btn.onclick = function() {
-          var topicDiv = btn.parentNode;
-          var isOpen = topicDiv.classList.toggle('open');
-          btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        };
-      });
-      console.log("Accordion button events bound!");
-    }
-    setInterval(bindAccordionButtonEvents, 2000);
-    </script>
 </html>
