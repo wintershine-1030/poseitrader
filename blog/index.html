@@ -195,7 +195,7 @@
         border: 1px solid #2d2930;
         border-radius: 12px;
         background: rgba(27, 27, 29, 0.6);
-        margin-bottom: 16px;
+        margin-bottom: 30px;
         overflow: hidden;
         transition: box-shadow 0.2s;
       }
@@ -259,6 +259,13 @@
           padding-left: 1rem;
           padding-right: 1rem;
         }
+      }
+      .MuiBox-root.css-42nh1x {
+        display: flex;
+        justify-content: center;
+      }
+      p.MuiTypography-root.MuiTypography-body1.css-12wonab {
+        margin-bottom: 100px;
       }
     </style>
   </head>
@@ -1287,53 +1294,62 @@
                       }
                     }
                   </style>
-                                     <div class="MuiBox-root css-1cgwo5n">
-                     <div class="posei-topic-wrap">
-                       <div class="posei-topic">
-                         <button class="posei-topic-header" onclick="toggleAccordion(this)">
-                           <span>Where Strategy Meets Execution</span
-                           ><span class="posei-topic-arrow">▼</span>
-                         </button>
-                         <div class="posei-topic-content">
-                           Discover how our open-source platform bridges the gap
-                           between backtesting and live trading. We've built
-                           PoseiTrader to give quant traders unprecedented
-                           control - test complex strategies with confidence and
-                           deploy them to real markets without code changes. The
-                           event-driven engine and portfolio-wide analysis tools
-                           provide the accuracy serious traders demand.
-                          </div>
-                       </div>
-                       <div class="posei-topic">
-                         <button class="posei-topic-header" onclick="toggleAccordion(this)">
-                           <span>The Flexibility You Need</span
-                           ><span class="posei-topic-arrow">▼</span>
-                         </button>
-                         <div class="posei-topic-content">
-                           PoseiTrader isn't just powerful - it's adaptable.
-                           Every component is designed to work together
-                           seamlessly while giving you room to customize. Whether
-                           you're running simple strategies or complex
-                           multi-asset portfolios, our framework adjusts to your
-                           needs, not the other way around.
-                          </div>
-                       </div>
-                       <div class="posei-topic">
-                         <button class="posei-topic-header" onclick="toggleAccordion(this)">
-                           <span>Practical Insights for Real Trading</span
-                           ><span class="posei-topic-arrow">▼</span>
-                         </button>
-                         <div class="posei-topic-content">
-                           This blog cuts through complexity with actionable
-                           knowledge. We break down advanced concepts, share
-                           implementation examples, and highlight features that
-                           deliver real trading edge. Our documentation covers
-                           the technical details - here we focus on applying that
-                           knowledge effectively.
-                         </div>
-                       </div>
-                     </div>
-                   </div>
+                  <div class="MuiBox-root css-1cgwo5n">
+                    <div class="posei-topic-wrap">
+                      <div class="posei-topic">
+                        <button
+                          class="posei-topic-header"
+                          onclick="toggleAccordion(this)"
+                        >
+                          <span>Where Strategy Meets Execution</span
+                          ><span class="posei-topic-arrow">▼</span>
+                        </button>
+                        <div class="posei-topic-content">
+                          Discover how our open-source platform bridges the gap
+                          between backtesting and live trading. We've built
+                          PoseiTrader to give quant traders unprecedented
+                          control - test complex strategies with confidence and
+                          deploy them to real markets without code changes. The
+                          event-driven engine and portfolio-wide analysis tools
+                          provide the accuracy serious traders demand.
+                        </div>
+                      </div>
+                      <div class="posei-topic">
+                        <button
+                          class="posei-topic-header"
+                          onclick="toggleAccordion(this)"
+                        >
+                          <span>The Flexibility You Need</span
+                          ><span class="posei-topic-arrow">▼</span>
+                        </button>
+                        <div class="posei-topic-content">
+                          PoseiTrader isn't just powerful - it's adaptable.
+                          Every component is designed to work together
+                          seamlessly while giving you room to customize. Whether
+                          you're running simple strategies or complex
+                          multi-asset portfolios, our framework adjusts to your
+                          needs, not the other way around.
+                        </div>
+                      </div>
+                      <div class="posei-topic">
+                        <button
+                          class="posei-topic-header"
+                          onclick="toggleAccordion(this)"
+                        >
+                          <span>Practical Insights for Real Trading</span
+                          ><span class="posei-topic-arrow">▼</span>
+                        </button>
+                        <div class="posei-topic-content">
+                          This blog cuts through complexity with actionable
+                          knowledge. We break down advanced concepts, share
+                          implementation examples, and highlight features that
+                          deliver real trading edge. Our documentation covers
+                          the technical details - here we focus on applying that
+                          knowledge effectively.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -2772,10 +2788,10 @@
       (self.__next_f = self.__next_f || []).push([0]);
     </script>
     <script>
-            // Global accordion toggle function
+      // Global accordion toggle function
       function toggleAccordion(buttonElement) {
         console.log("toggleAccordion called");
-        
+
         var accordionItem = buttonElement.parentElement;
         var arrow = buttonElement.querySelector(".posei-topic-arrow");
         var content = accordionItem.querySelector(".posei-topic-content");
@@ -2804,32 +2820,32 @@
         console.log("DOM already loaded, accordion ready");
         initAccordionEventListeners();
       }
-      
+
       // Also try after delays to ensure React has rendered
       setTimeout(initAccordionEventListeners, 1000);
       setTimeout(initAccordionEventListeners, 3000);
-      
+
       // Function to add event listeners to accordion buttons
       function initAccordionEventListeners() {
         console.log("initAccordionEventListeners called");
-        var buttons = document.querySelectorAll('.posei-topic-header');
+        var buttons = document.querySelectorAll(".posei-topic-header");
         console.log("Found", buttons.length, "accordion buttons");
-        
-        buttons.forEach(function(button, index) {
+
+        buttons.forEach(function (button, index) {
           // Remove existing listeners to prevent duplicates
-          button.removeEventListener('click', button.clickHandler);
-          
+          button.removeEventListener("click", button.clickHandler);
+
           // Add click event listener
-          button.clickHandler = function(e) {
+          button.clickHandler = function (e) {
             e.preventDefault();
             e.stopPropagation();
             console.log("Button clicked:", index);
             toggleAccordion(this);
           };
-          
-          button.addEventListener('click', button.clickHandler);
+
+          button.addEventListener("click", button.clickHandler);
         });
-        
+
         console.log("Event listeners added to", buttons.length, "buttons");
       }
     </script>
