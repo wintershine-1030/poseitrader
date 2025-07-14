@@ -256,279 +256,54 @@
         }
       }
     </style>
-    <style>
-      .posei-topic-wrap {
-        width: 100%;
-        max-width: 700px;
-        margin: 0 auto 1.5rem auto;
-        font-family: "Inter", "IBM Plex Sans", Arial, sans-serif;
-      }
-      .posei-topic {
-        border: 1px solid #2d2930;
-        border-radius: 12px;
-        background: rgba(27, 27, 29, 0.6);
-        margin-bottom: 16px;
-        overflow: hidden;
-        transition: box-shadow 0.2s;
-      }
-      .posei-topic:hover {
-        border-color: #1dbac9;
-        background: rgba(27, 27, 29, 0.8);
-        box-shadow: 0 2px 12px 0 rgba(29, 186, 201, 0.08);
-      }
-      .posei-topic-header {
-        cursor: pointer;
-        padding: 1.2rem 1.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 1.15rem;
-        font-weight: 600;
-        color: #eee;
-        letter-spacing: -0.2px;
-        background: none;
-        border: none;
-        outline: none;
-        width: 100%;
-        transition: background 0.2s;
-      }
-      .posei-topic-header:hover {
-        background: rgba(29, 186, 201, 0.08);
-      }
-      .posei-topic-arrow {
-        font-size: 1.5rem;
-        color: #1dbac9;
-        transition: transform 0.3s;
-        margin-left: 12px;
-      }
-      .posei-topic.open .posei-topic-arrow {
-        transform: rotate(180deg);
-      }
-      .posei-topic-content {
-        max-height: 0;
-        overflow: hidden;
-        background: none;
-        color: #ccc;
-        font-size: 1rem;
-        font-weight: 370;
-        letter-spacing: -0.1px;
-        line-height: 1.6;
-        padding: 0 1.5rem;
-        border-top: 1px solid #2d2930;
-        transition: max-height 0.3s, opacity 0.3s, padding 0.3s;
-        opacity: 0;
-      }
-      .posei-topic.open .posei-topic-content {
-        max-height: 500px;
-        opacity: 1;
-        padding: 1rem 1.5rem 1.5rem 1.5rem;
-      }
-      @media (max-width: 600px) {
-        .posei-topic-header,
-        .posei-topic-content {
-          padding-left: 1rem;
-          padding-right: 1rem;
+     <script>
+      setTimeout(function() {
+        var target = document.querySelector('.css-1bnz899 .css-1qo5sis');
+        if (target) {
+          target.innerHTML = `
+<div class="posei-topic-wrap">
+  <details class="posei-topic">
+    <summary class="posei-topic-header">
+      <span>Where Strategy Meets Execution</span>
+      <span class="posei-topic-arrow">&#9660;</span>
+    </summary>
+    <div class="posei-topic-content">
+      Discover how our open-source platform bridges the gap between backtesting
+      and live trading. We've built PoseiTrader to give quant traders
+      unprecedented control - test complex strategies with confidence and deploy
+      them to real markets without code changes. The event-driven engine and
+      portfolio-wide analysis tools provide the accuracy serious traders demand.
+    </div>
+  </details>
+  <details class="posei-topic">
+    <summary class="posei-topic-header">
+      <span>The Flexibility You Need</span>
+      <span class="posei-topic-arrow">&#9660;</span>
+    </summary>
+    <div class="posei-topic-content">
+      PoseiTrader isn't just powerful - it's adaptable. Every component is
+      designed to work together seamlessly while giving you room to customize.
+      Whether you're running simple strategies or complex multi-asset
+      portfolios, our framework adjusts to your needs, not the other way around.
+    </div>
+  </details>
+  <details class="posei-topic">
+    <summary class="posei-topic-header">
+      <span>Practical Insights for Real Trading</span>
+      <span class="posei-topic-arrow">&#9660;</span>
+    </summary>
+    <div class="posei-topic-content">
+      This blog cuts through complexity with actionable knowledge. We break down
+      advanced concepts, share implementation examples, and highlight features
+      that deliver real trading edge. Our documentation covers the technical
+      details - here we focus on applying that knowledge effectively.
+    </div>
+  </details>
+</div>
+          `;
         }
-      }
-    </style>
-    <script>
-      function initializeAccordion() {
-        var topics = [
-          {
-            title: "Where Strategy Meets Execution",
-            content:
-              "Discover how our open-source platform bridges the gap between backtesting and live trading. We've built PoseiTrader to give quant traders unprecedented control - test complex strategies with confidence and deploy them to real markets without code changes. The event-driven engine and portfolio-wide analysis tools provide the accuracy serious traders demand.",
-          },
-          {
-            title: "The Flexibility You Need",
-            content:
-              "PoseiTrader isn't just powerful - it's adaptable. Every component is designed to work together seamlessly while giving you room to customize. Whether you're running simple strategies or complex multi-asset portfolios, our framework adjusts to your needs, not the other way around.",
-          },
-          {
-            title: "Practical Insights for Real Trading",
-            content:
-              "This blog cuts through complexity with actionable knowledge. We break down advanced concepts, share implementation examples, and highlight features that deliver real trading edge. Our documentation covers the technical details - here we focus on applying that knowledge effectively.",
-          },
-        ];
-
-                            function insertAccordion() {
-            // Remove any existing accordion
-            var old = document.querySelector(".posei-topic-wrap");
-            if (old) old.parentNode.removeChild(old);
-
-            // Try to find the target <p> first
-            var allPs = document.getElementsByTagName("p");
-            var targetP = null;
-            for (var i = 0; i < allPs.length; i++) {
-              if (
-                allPs[i].textContent &&
-                allPs[i].textContent.indexOf(
-                  "Welcome to the PoseiTrader Blog"
-                ) !== -1
-              ) {
-                targetP = allPs[i];
-                break;
-              }
-            }
-            
-            // If not found in <p>, try to find the css-1bnz899 container
-            if (!targetP) {
-              var container = document.querySelector(".css-1bnz899");
-              if (container) {
-                // Find the first child div that contains the grid
-                var gridContainer = container.querySelector(".css-1qo5sis");
-                if (gridContainer) {
-                  targetP = gridContainer;
-                }
-              }
-            }
-            
-            if (!targetP) return false;
-
-            var wrap = document.createElement("div");
-            wrap.className = "posei-topic-wrap";
-
-            topics.forEach(function (topic) {
-              var topicDiv = document.createElement("div");
-              topicDiv.className = "posei-topic";
-
-              // Create button
-              var btn = document.createElement("button");
-              btn.className = "posei-topic-header";
-              btn.type = "button";
-              btn.setAttribute("aria-expanded", "false");
-              btn.innerHTML =
-                "<span>" +
-                topic.title +
-                '</span><span class="posei-topic-arrow">&#9660;</span>';
-
-              // Create content
-              var contentDiv = document.createElement("div");
-              contentDiv.className = "posei-topic-content";
-              contentDiv.innerHTML = topic.content;
-
-              topicDiv.appendChild(btn);
-              topicDiv.appendChild(contentDiv);
-              wrap.appendChild(topicDiv);
-            });
-
-            // Insert after the target <p>
-            if (targetP.nextSibling) {
-              targetP.parentNode.insertBefore(wrap, targetP.nextSibling);
-            } else {
-              targetP.parentNode.appendChild(wrap);
-            }
-
-            // Add click event listeners to each button
-            var buttons = wrap.querySelectorAll(".posei-topic-header");
-            buttons.forEach(function (btn) {
-              btn.addEventListener("click", function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                var topicDiv = this.parentNode;
-                var isOpen = topicDiv.classList.toggle("open");
-                this.setAttribute("aria-expanded", isOpen ? "true" : "false");
-                console.log(
-                  "Accordion toggled:",
-                  this.querySelector("span").textContent,
-                  isOpen
-                );
-              });
-            });
-
-            return true;
-          }
-
-          function replaceSkeletonWithAccordion() {
-            // Find the skeleton loading area
-            var skeletonContainer = document.querySelector(".css-1bnz899");
-            if (!skeletonContainer) return false;
-
-            // Remove skeleton content
-            var gridContainer = skeletonContainer.querySelector(".css-1qo5sis");
-            if (gridContainer) {
-              gridContainer.innerHTML = "";
-            }
-
-            // Create accordion wrapper
-            var wrap = document.createElement("div");
-            wrap.className = "posei-topic-wrap";
-
-            topics.forEach(function (topic) {
-              var topicDiv = document.createElement("div");
-              topicDiv.className = "posei-topic";
-
-              // Create button
-              var btn = document.createElement("button");
-              btn.className = "posei-topic-header";
-              btn.type = "button";
-              btn.setAttribute("aria-expanded", "false");
-              btn.innerHTML =
-                "<span>" +
-                topic.title +
-                '</span><span class="posei-topic-arrow">&#9660;</span>';
-
-              // Create content
-              var contentDiv = document.createElement("div");
-              contentDiv.className = "posei-topic-content";
-              contentDiv.innerHTML = topic.content;
-
-              topicDiv.appendChild(btn);
-              topicDiv.appendChild(contentDiv);
-              wrap.appendChild(topicDiv);
-            });
-
-            // Insert into the skeleton container
-            if (gridContainer) {
-              gridContainer.appendChild(wrap);
-            }
-
-            // Add click event listeners to each button
-            var buttons = wrap.querySelectorAll(".posei-topic-header");
-            buttons.forEach(function (btn) {
-              btn.addEventListener("click", function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                var topicDiv = this.parentNode;
-                var isOpen = topicDiv.classList.toggle("open");
-                this.setAttribute("aria-expanded", isOpen ? "true" : "false");
-                console.log(
-                  "Accordion toggled:",
-                  this.querySelector("span").textContent,
-                  isOpen
-                );
-              });
-            });
-
-            return true;
-          }
-
-        // Try to insert accordion immediately
-        if (!insertAccordion()) {
-          // If not found, wait for DOM changes
-          var observer = new MutationObserver(function () {
-            if (insertAccordion()) {
-              observer.disconnect();
-              console.log("Accordion inserted successfully!");
-            }
-          });
-          observer.observe(document.body, { childList: true, subtree: true });
-        } else {
-          console.log("Accordion inserted immediately!");
-        }
-      }
-
-      // Initialize when DOM is ready
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", initializeAccordion);
-      } else {
-        initializeAccordion();
-      }
-
-      // Also try after a delay to ensure React hydration is complete
-      setTimeout(initializeAccordion, 1000);
-      setTimeout(initializeAccordion, 3000);
-    </script>
+      }, 3000);
+      </script>
   </head>
   <body class="__className_e8ce0c">
     <style data-emotion="css i6bazn">
