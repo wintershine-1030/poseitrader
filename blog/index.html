@@ -329,113 +329,52 @@
       }
     </style>
     <script>
-      var topics = [
-        {
-          title: "Where Strategy Meets Execution",
-          content:
-            "Discover how our open-source platform bridges the gap between backtesting and live trading. We've built PoseiTrader to give quant traders unprecedented control - test complex strategies with confidence and deploy them to real markets without code changes. The event-driven engine and portfolio-wide analysis tools provide the accuracy serious traders demand.",
-        },
-        {
-          title: "The Flexibility You Need",
-          content:
-            "PoseiTrader isn't just powerful - it's adaptable. Every component is designed to work together seamlessly while giving you room to customize. Whether you're running simple strategies or complex multi-asset portfolios, our framework adjusts to your needs, not the other way around.",
-        },
-        {
-          title: "Practical Insights for Real Trading",
-          content:
-            "This blog cuts through complexity with actionable knowledge. We break down advanced concepts, share implementation examples, and highlight features that deliver real trading edge. Our documentation covers the technical details - here we focus on applying that knowledge effectively.",
-        },
-      ];
-
-      function toggleAccordion(btn) {
-        var topicDiv = btn.parentNode;
-        var contentDiv = topicDiv.querySelector('.posei-topic-content');
-        var isOpen = topicDiv.classList.toggle("open");
-        if (isOpen) {
-          contentDiv.style.height = contentDiv.scrollHeight + "px";
-          contentDiv.style.opacity = "1";
-          contentDiv.style.padding = "1rem 1.5rem 1.5rem 1.5rem";
-        } else {
-          contentDiv.style.height = "0";
-          contentDiv.style.opacity = "0";
-          contentDiv.style.padding = "0 1.5rem";
+      setTimeout(function() {
+        var target = document.querySelector('.css-1bnz899 .css-1qo5sis');
+        if (target) {
+          target.innerHTML = `
+<div class="posei-topic-wrap">
+  <details class="posei-topic">
+    <summary class="posei-topic-header">
+      <span>Where Strategy Meets Execution</span>
+      <span class="posei-topic-arrow">&#9660;</span>
+    </summary>
+    <div class="posei-topic-content">
+      Discover how our open-source platform bridges the gap between backtesting
+      and live trading. We've built PoseiTrader to give quant traders
+      unprecedented control - test complex strategies with confidence and deploy
+      them to real markets without code changes. The event-driven engine and
+      portfolio-wide analysis tools provide the accuracy serious traders demand.
+    </div>
+  </details>
+  <details class="posei-topic">
+    <summary class="posei-topic-header">
+      <span>The Flexibility You Need</span>
+      <span class="posei-topic-arrow">&#9660;</span>
+    </summary>
+    <div class="posei-topic-content">
+      PoseiTrader isn't just powerful - it's adaptable. Every component is
+      designed to work together seamlessly while giving you room to customize.
+      Whether you're running simple strategies or complex multi-asset
+      portfolios, our framework adjusts to your needs, not the other way around.
+    </div>
+  </details>
+  <details class="posei-topic">
+    <summary class="posei-topic-header">
+      <span>Practical Insights for Real Trading</span>
+      <span class="posei-topic-arrow">&#9660;</span>
+    </summary>
+    <div class="posei-topic-content">
+      This blog cuts through complexity with actionable knowledge. We break down
+      advanced concepts, share implementation examples, and highlight features
+      that deliver real trading edge. Our documentation covers the technical
+      details - here we focus on applying that knowledge effectively.
+    </div>
+  </details>
+</div>
+          `;
         }
-        btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
-      }
-
-      function replaceSkeletonWithAccordion() {
-        // Find the skeleton loading area
-        var skeletonContainer = document.querySelector(".css-1bnz899");
-        if (!skeletonContainer) return false;
-
-        // Remove skeleton content
-        var gridContainer = skeletonContainer.querySelector(".css-1qo5sis");
-        if (gridContainer) {
-          gridContainer.innerHTML = "";
-        }
-
-        // Create accordion wrapper
-        var wrap = document.createElement("div");
-        wrap.className = "posei-topic-wrap";
-
-        topics.forEach(function (topic) {
-          var topicDiv = document.createElement("div");
-          topicDiv.className = "posei-topic";
-
-          // Create button
-          var btn = document.createElement("button");
-          btn.className = "posei-topic-header";
-          btn.type = "button";
-          btn.setAttribute("aria-expanded", "false");
-          btn.setAttribute("onclick", "toggleAccordion(this)");
-          btn.innerHTML =
-            "<span>" +
-            topic.title +
-            '</span><span class=\"posei-topic-arrow\">&#9660;</span>';
-
-          // Create content
-          var contentDiv = document.createElement("div");
-          contentDiv.className = "posei-topic-content";
-          contentDiv.innerHTML = topic.content;
-
-          topicDiv.appendChild(btn);
-          topicDiv.appendChild(contentDiv);
-          wrap.appendChild(topicDiv);
-        });
-
-        if (gridContainer) {
-          gridContainer.appendChild(wrap);
-        }
-
-        return true;
-      }
-
-      function initializeAccordion() {
-        // Try to replace skeleton with accordion immediately
-        if (!replaceSkeletonWithAccordion()) {
-          // If not found, wait for DOM changes
-          var observer = new MutationObserver(function () {
-            if (replaceSkeletonWithAccordion()) {
-              observer.disconnect();
-              console.log("Skeleton replaced with accordion successfully!");
-            }
-          });
-          observer.observe(document.body, { childList: true, subtree: true });
-        } else {
-          console.log("Skeleton replaced with accordion immediately!");
-        }
-      }
-
-      // Initialize when DOM is ready
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", initializeAccordion);
-      } else {
-        initializeAccordion();
-      }
-
-      // Also try after a delay to ensure React hydration is complete
-      setTimeout(initializeAccordion, 1000);
-      setTimeout(initializeAccordion, 3000);
+      }, 3000);
     </script>
   </head>
   <body class="__className_e8ce0c">
