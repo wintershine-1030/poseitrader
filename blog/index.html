@@ -161,9 +161,6 @@
           'body link[rel="icon"], body link[rel="apple-touch-icon"]'
         )
         .forEach((el) => document.head.appendChild(el));
-      document.querySelectorAll(".posei-topic-header").forEach((btn) => {
-        btn.onclick = () => alert("clicked");
-      });
     </script>
 
     <script
@@ -351,93 +348,87 @@
           },
         ];
 
-        function insertAccordion() {
-          // Remove any existing accordion
-          var old = document.querySelector(".posei-topic-wrap");
-          if (old) old.parentNode.removeChild(old);
+                            function insertAccordion() {
+            // This function is now deprecated - use replaceSkeletonWithAccordion instead
+            return false;
+          }
 
-          // Find the target <p>
-          var allPs = document.getElementsByTagName("p");
-          var targetP = null;
-          for (var i = 0; i < allPs.length; i++) {
-            if (
-              allPs[i].textContent &&
-              allPs[i].textContent.indexOf(
-                "Welcome to the PoseiTrader Blog"
-              ) !== -1
-            ) {
-              targetP = allPs[i];
-              break;
+          function replaceSkeletonWithAccordion() {
+            // Find the skeleton loading area
+            var skeletonContainer = document.querySelector(".css-1bnz899");
+            if (!skeletonContainer) return false;
+
+            // Remove skeleton content
+            var gridContainer = skeletonContainer.querySelector(".css-1qo5sis");
+            if (gridContainer) {
+              gridContainer.innerHTML = "";
             }
-          }
-          if (!targetP) return false;
 
-          var wrap = document.createElement("div");
-          wrap.className = "posei-topic-wrap";
+            // Create accordion wrapper
+            var wrap = document.createElement("div");
+            wrap.className = "posei-topic-wrap";
 
-          topics.forEach(function (topic) {
-            var topicDiv = document.createElement("div");
-            topicDiv.className = "posei-topic";
+            topics.forEach(function (topic) {
+              var topicDiv = document.createElement("div");
+              topicDiv.className = "posei-topic";
 
-            // Create button
-            var btn = document.createElement("button");
-            btn.className = "posei-topic-header";
-            btn.type = "button";
-            btn.setAttribute("aria-expanded", "false");
-            btn.innerHTML =
-              "<span>" +
-              topic.title +
-              '</span><span class="posei-topic-arrow">&#9660;</span>';
+              // Create button
+              var btn = document.createElement("button");
+              btn.className = "posei-topic-header";
+              btn.type = "button";
+              btn.setAttribute("aria-expanded", "false");
+              btn.innerHTML =
+                "<span>" +
+                topic.title +
+                '</span><span class="posei-topic-arrow">&#9660;</span>';
 
-            // Create content
-            var contentDiv = document.createElement("div");
-            contentDiv.className = "posei-topic-content";
-            contentDiv.innerHTML = topic.content;
+              // Create content
+              var contentDiv = document.createElement("div");
+              contentDiv.className = "posei-topic-content";
+              contentDiv.innerHTML = topic.content;
 
-            topicDiv.appendChild(btn);
-            topicDiv.appendChild(contentDiv);
-            wrap.appendChild(topicDiv);
-          });
-
-          // Insert after the target <p>
-          if (targetP.nextSibling) {
-            targetP.parentNode.insertBefore(wrap, targetP.nextSibling);
-          } else {
-            targetP.parentNode.appendChild(wrap);
-          }
-
-          // Add click event listeners to each button
-          var buttons = wrap.querySelectorAll(".posei-topic-header");
-          buttons.forEach(function (btn) {
-            btn.addEventListener("click", function (e) {
-              e.preventDefault();
-              e.stopPropagation();
-              var topicDiv = this.parentNode;
-              var isOpen = topicDiv.classList.toggle("open");
-              this.setAttribute("aria-expanded", isOpen ? "true" : "false");
-              console.log(
-                "Accordion toggled:",
-                this.querySelector("span").textContent,
-                isOpen
-              );
+              topicDiv.appendChild(btn);
+              topicDiv.appendChild(contentDiv);
+              wrap.appendChild(topicDiv);
             });
-          });
 
-          return true;
-        }
+            // Insert into the skeleton container
+            if (gridContainer) {
+              gridContainer.appendChild(wrap);
+            }
 
-        // Try to insert accordion immediately
-        if (!insertAccordion()) {
+            // Add click event listeners to each button
+            var buttons = wrap.querySelectorAll(".posei-topic-header");
+            buttons.forEach(function (btn) {
+              btn.addEventListener("click", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var topicDiv = this.parentNode;
+                var isOpen = topicDiv.classList.toggle("open");
+                this.setAttribute("aria-expanded", isOpen ? "true" : "false");
+                console.log(
+                  "Accordion toggled:",
+                  this.querySelector("span").textContent,
+                  isOpen
+                );
+              });
+            });
+
+            return true;
+          }
+
+        // Try to replace skeleton with accordion immediately
+        if (!replaceSkeletonWithAccordion()) {
           // If not found, wait for DOM changes
           var observer = new MutationObserver(function () {
-            if (insertAccordion()) {
+            if (replaceSkeletonWithAccordion()) {
               observer.disconnect();
-              console.log("Accordion inserted successfully!");
+              console.log("Skeleton replaced with accordion successfully!");
             }
           });
           observer.observe(document.body, { childList: true, subtree: true });
         } else {
-          console.log("Accordion inserted immediately!");
+          console.log("Skeleton replaced with accordion immediately!");
         }
       }
 
