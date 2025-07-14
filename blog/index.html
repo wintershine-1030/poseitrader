@@ -216,6 +216,8 @@
         outline: none;
         width: 100%;
         transition: background 0.2s;
+        font-family: inherit;
+        text-align: left;
       }
       .posei-topic-header:hover {
         background: rgba(29, 186, 201, 0.08);
@@ -240,20 +242,12 @@
         border-top: 1px solid #2d2930;
         display: none;
       }
-      /* Hide default details marker */
-      details > summary {
-        list-style: none;
-        cursor: pointer;
-      }
-      details > summary::-webkit-details-marker {
-        display: none;
-      }
-      /* Show content when details is open */
-      details[open] .posei-topic-content {
+      /* Show content when accordion is open */
+      .posei-topic.open .posei-topic-content {
         display: block;
       }
-      /* Rotate arrow when details is open */
-      details[open] .posei-topic-arrow {
+      /* Rotate arrow when accordion is open */
+      .posei-topic.open .posei-topic-arrow {
         transform: rotate(180deg);
       }
       @media (max-width: 600px) {
@@ -264,7 +258,6 @@
         }
       }
     </style>
-    
   </head>
   <body class="__className_e8ce0c">
     <style data-emotion="css i6bazn">
@@ -1291,6 +1284,53 @@
                       }
                     }
                   </style>
+                                     <div class="MuiBox-root css-1cgwo5n">
+                     <div class="posei-topic-wrap">
+                       <div class="posei-topic">
+                         <button class="posei-topic-header" onclick="toggleAccordion(this)">
+                           <span>Where Strategy Meets Execution</span
+                           ><span class="posei-topic-arrow">▼</span>
+                         </button>
+                         <div class="posei-topic-content">
+                           Discover how our open-source platform bridges the gap
+                           between backtesting and live trading. We've built
+                           PoseiTrader to give quant traders unprecedented
+                           control - test complex strategies with confidence and
+                           deploy them to real markets without code changes. The
+                           event-driven engine and portfolio-wide analysis tools
+                           provide the accuracy serious traders demand.
+                          </div>
+                       </div>
+                       <div class="posei-topic">
+                         <button class="posei-topic-header" onclick="toggleAccordion(this)">
+                           <span>The Flexibility You Need</span
+                           ><span class="posei-topic-arrow">▼</span>
+                         </button>
+                         <div class="posei-topic-content">
+                           PoseiTrader isn't just powerful - it's adaptable.
+                           Every component is designed to work together
+                           seamlessly while giving you room to customize. Whether
+                           you're running simple strategies or complex
+                           multi-asset portfolios, our framework adjusts to your
+                           needs, not the other way around.
+                          </div>
+                       </div>
+                       <div class="posei-topic">
+                         <button class="posei-topic-header" onclick="toggleAccordion(this)">
+                           <span>Practical Insights for Real Trading</span
+                           ><span class="posei-topic-arrow">▼</span>
+                         </button>
+                         <div class="posei-topic-content">
+                           This blog cuts through complexity with actionable
+                           knowledge. We break down advanced concepts, share
+                           implementation examples, and highlight features that
+                           deliver real trading edge. Our documentation covers
+                           the technical details - here we focus on applying that
+                           knowledge effectively.
+                         </div>
+                       </div>
+                     </div>
+                   </div>
                 </div>
               </div>
             </div>
@@ -2729,31 +2769,31 @@
       (self.__next_f = self.__next_f || []).push([0]);
     </script>
     <script>
-      // Global accordion toggle function
-      function toggleAccordion(summaryElement) {
+            // Global accordion toggle function
+      function toggleAccordion(buttonElement) {
         console.log("toggleAccordion called");
         
-        var detail = summaryElement.parentElement;
-        var arrow = summaryElement.querySelector('.posei-topic-arrow');
-        var content = detail.querySelector('.posei-topic-content');
-        
-        // Toggle the details open state
-        if (detail.hasAttribute('open')) {
-          detail.removeAttribute('open');
-          arrow.style.transform = 'rotate(0deg)';
-          content.style.display = 'none';
+        var accordionItem = buttonElement.parentElement;
+        var arrow = buttonElement.querySelector(".posei-topic-arrow");
+        var content = accordionItem.querySelector(".posei-topic-content");
+
+        // Toggle the accordion open state
+        if (accordionItem.classList.contains("open")) {
+          accordionItem.classList.remove("open");
+          arrow.style.transform = "rotate(0deg)";
+          content.style.display = "none";
           console.log("Accordion closed");
         } else {
-          detail.setAttribute('open', '');
-          arrow.style.transform = 'rotate(180deg)';
-          content.style.display = 'block';
+          accordionItem.classList.add("open");
+          arrow.style.transform = "rotate(180deg)";
+          content.style.display = "block";
           console.log("Accordion opened");
         }
       }
-      
+
       // Initialize when DOM is ready
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() {
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", function () {
           console.log("DOM loaded, accordion ready");
         });
       } else {

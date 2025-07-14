@@ -516,10 +516,10 @@
                           children: (0, i.jsxs)("div", {
                             className: "posei-topic-wrap",
                             children: [
-                              (0, i.jsxs)("details", {
+                              (0, i.jsxs)("div", {
                                 className: "posei-topic",
                                 children: [
-                                  (0, i.jsxs)("summary", {
+                                  (0, i.jsxs)("button", {
                                     className: "posei-topic-header",
                                     onclick: "toggleAccordion(this)",
                                     children: [
@@ -538,10 +538,10 @@
                                   }),
                                 ],
                               }),
-                              (0, i.jsxs)("details", {
+                              (0, i.jsxs)("div", {
                                 className: "posei-topic",
                                 children: [
-                                  (0, i.jsxs)("summary", {
+                                  (0, i.jsxs)("button", {
                                     className: "posei-topic-header",
                                     onclick: "toggleAccordion(this)",
                                     children: [
@@ -560,10 +560,10 @@
                                   }),
                                 ],
                               }),
-                              (0, i.jsxs)("details", {
+                              (0, i.jsxs)("div", {
                                 className: "posei-topic",
                                 children: [
-                                  (0, i.jsxs)("summary", {
+                                  (0, i.jsxs)("button", {
                                     className: "posei-topic-header",
                                     onclick: "toggleAccordion(this)",
                                     children: [
