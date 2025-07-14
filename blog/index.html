@@ -2729,56 +2729,36 @@
       (self.__next_f = self.__next_f || []).push([0]);
     </script>
     <script>
-      // Accordion functionality
-      function initAccordion() {
-        console.log("initAccordion");
-        var details = document.querySelectorAll('details.posei-topic');
-        if (details.length === 0) {
-          setTimeout(initAccordion, 500);
-          return;
+      // Global accordion toggle function
+      function toggleAccordion(summaryElement) {
+        console.log("toggleAccordion called");
+        
+        var detail = summaryElement.parentElement;
+        var arrow = summaryElement.querySelector('.posei-topic-arrow');
+        var content = detail.querySelector('.posei-topic-content');
+        
+        // Toggle the details open state
+        if (detail.hasAttribute('open')) {
+          detail.removeAttribute('open');
+          arrow.style.transform = 'rotate(0deg)';
+          content.style.display = 'none';
+          console.log("Accordion closed");
+        } else {
+          detail.setAttribute('open', '');
+          arrow.style.transform = 'rotate(180deg)';
+          content.style.display = 'block';
+          console.log("Accordion opened");
         }
-        
-        details.forEach(function(detail) {
-          var summary = detail.querySelector('summary');
-          var arrow = detail.querySelector('.posei-topic-arrow');
-          var content = detail.querySelector('.posei-topic-content');
-          
-          // Remove any existing listeners
-          summary.removeEventListener('click', summary.clickHandler);
-          
-          // Add click event listener
-          summary.clickHandler = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // Toggle the details open state
-            if (detail.hasAttribute('open')) {
-              detail.removeAttribute('open');
-              arrow.style.transform = 'rotate(0deg)';
-              content.style.display = 'none';
-            } else {
-              detail.setAttribute('open', '');
-              arrow.style.transform = 'rotate(180deg)';
-              content.style.display = 'block';
-            }
-          };
-          
-          summary.addEventListener('click', summary.clickHandler);
-        });
-        
-        console.log('Accordion initialized with', details.length, 'items');
       }
       
       // Initialize when DOM is ready
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initAccordion);
+        document.addEventListener('DOMContentLoaded', function() {
+          console.log("DOM loaded, accordion ready");
+        });
       } else {
-        initAccordion();
+        console.log("DOM already loaded, accordion ready");
       }
-      
-      // Also try after a delay to ensure React has rendered
-      setTimeout(initAccordion, 1000);
-      setTimeout(initAccordion, 3000);
     </script>
     <script>
       self.__next_f.push([

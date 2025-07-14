@@ -521,6 +521,7 @@
                                 children: [
                                   (0, i.jsxs)("summary", {
                                     className: "posei-topic-header",
+                                    onclick: "toggleAccordion(this)",
                                     children: [
                                       (0, i.jsx)("span", {
                                         children: "Where Strategy Meets Execution",
@@ -542,6 +543,7 @@
                                 children: [
                                   (0, i.jsxs)("summary", {
                                     className: "posei-topic-header",
+                                    onclick: "toggleAccordion(this)",
                                     children: [
                                       (0, i.jsx)("span", {
                                         children: "The Flexibility You Need",
@@ -563,6 +565,7 @@
                                 children: [
                                   (0, i.jsxs)("summary", {
                                     className: "posei-topic-header",
+                                    onclick: "toggleAccordion(this)",
                                     children: [
                                       (0, i.jsx)("span", {
                                         children: "Practical Insights for Real Trading",
