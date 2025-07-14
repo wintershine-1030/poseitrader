@@ -161,7 +161,11 @@
           'body link[rel="icon"], body link[rel="apple-touch-icon"]'
         )
         .forEach((el) => document.head.appendChild(el));
+      document.querySelectorAll(".posei-topic-header").forEach((btn) => {
+        btn.onclick = () => alert("clicked");
+      });
     </script>
+
     <script
       src="../_next/static/chunks/polyfills-42372ed130431b0a.js"
       nomodule=""
@@ -236,14 +240,12 @@
         line-height: 1.6;
         padding: 0 1.5rem;
         border-top: 1px solid #2d2930;
-        transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+        transition: max-height 0.3s, opacity 0.3s, padding 0.3s;
         opacity: 0;
-        visibility: hidden;
       }
       .posei-topic.open .posei-topic-content {
-        max-height: 800px;
+        max-height: 500px;
         opacity: 1;
-        visibility: visible;
         padding: 1rem 1.5rem 1.5rem 1.5rem;
       }
       @media (max-width: 600px) {
@@ -313,14 +315,12 @@
         line-height: 1.6;
         padding: 0 1.5rem;
         border-top: 1px solid #2d2930;
-        transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+        transition: max-height 0.3s, opacity 0.3s, padding 0.3s;
         opacity: 0;
-        visibility: hidden;
       }
       .posei-topic.open .posei-topic-content {
-        max-height: 800px;
+        max-height: 500px;
         opacity: 1;
-        visibility: visible;
         padding: 1rem 1.5rem 1.5rem 1.5rem;
       }
       @media (max-width: 600px) {
@@ -336,51 +336,62 @@
         var topics = [
           {
             title: "Where Strategy Meets Execution",
-            content: "Discover how our open-source platform bridges the gap between backtesting and live trading. We've built PoseiTrader to give quant traders unprecedented control - test complex strategies with confidence and deploy them to real markets without code changes. The event-driven engine and portfolio-wide analysis tools provide the accuracy serious traders demand."
+            content:
+              "Discover how our open-source platform bridges the gap between backtesting and live trading. We've built PoseiTrader to give quant traders unprecedented control - test complex strategies with confidence and deploy them to real markets without code changes. The event-driven engine and portfolio-wide analysis tools provide the accuracy serious traders demand.",
           },
           {
             title: "The Flexibility You Need",
-            content: "PoseiTrader isn't just powerful - it's adaptable. Every component is designed to work together seamlessly while giving you room to customize. Whether you're running simple strategies or complex multi-asset portfolios, our framework adjusts to your needs, not the other way around."
+            content:
+              "PoseiTrader isn't just powerful - it's adaptable. Every component is designed to work together seamlessly while giving you room to customize. Whether you're running simple strategies or complex multi-asset portfolios, our framework adjusts to your needs, not the other way around.",
           },
           {
             title: "Practical Insights for Real Trading",
-            content: "This blog cuts through complexity with actionable knowledge. We break down advanced concepts, share implementation examples, and highlight features that deliver real trading edge. Our documentation covers the technical details - here we focus on applying that knowledge effectively."
-          }
+            content:
+              "This blog cuts through complexity with actionable knowledge. We break down advanced concepts, share implementation examples, and highlight features that deliver real trading edge. Our documentation covers the technical details - here we focus on applying that knowledge effectively.",
+          },
         ];
 
         function insertAccordion() {
           // Remove any existing accordion
-          var old = document.querySelector('.posei-topic-wrap');
+          var old = document.querySelector(".posei-topic-wrap");
           if (old) old.parentNode.removeChild(old);
 
           // Find the target <p>
-          var allPs = document.getElementsByTagName('p');
+          var allPs = document.getElementsByTagName("p");
           var targetP = null;
           for (var i = 0; i < allPs.length; i++) {
-            if (allPs[i].textContent && allPs[i].textContent.indexOf("Welcome to the PoseiTrader Blog") !== -1) {
+            if (
+              allPs[i].textContent &&
+              allPs[i].textContent.indexOf(
+                "Welcome to the PoseiTrader Blog"
+              ) !== -1
+            ) {
               targetP = allPs[i];
               break;
             }
           }
           if (!targetP) return false;
 
-          var wrap = document.createElement('div');
-          wrap.className = 'posei-topic-wrap';
+          var wrap = document.createElement("div");
+          wrap.className = "posei-topic-wrap";
 
-          topics.forEach(function(topic) {
-            var topicDiv = document.createElement('div');
-            topicDiv.className = 'posei-topic';
+          topics.forEach(function (topic) {
+            var topicDiv = document.createElement("div");
+            topicDiv.className = "posei-topic";
 
             // Create button
-            var btn = document.createElement('button');
-            btn.className = 'posei-topic-header';
-            btn.type = 'button';
-            btn.setAttribute('aria-expanded', 'false');
-            btn.innerHTML = '<span>' + topic.title + '</span><span class="posei-topic-arrow">&#9660;</span>';
+            var btn = document.createElement("button");
+            btn.className = "posei-topic-header";
+            btn.type = "button";
+            btn.setAttribute("aria-expanded", "false");
+            btn.innerHTML =
+              "<span>" +
+              topic.title +
+              '</span><span class="posei-topic-arrow">&#9660;</span>';
 
             // Create content
-            var contentDiv = document.createElement('div');
-            contentDiv.className = 'posei-topic-content';
+            var contentDiv = document.createElement("div");
+            contentDiv.className = "posei-topic-content";
             contentDiv.innerHTML = topic.content;
 
             topicDiv.appendChild(btn);
@@ -396,15 +407,19 @@
           }
 
           // Add click event listeners to each button
-          var buttons = wrap.querySelectorAll('.posei-topic-header');
-          buttons.forEach(function(btn) {
-            btn.addEventListener('click', function(e) {
+          var buttons = wrap.querySelectorAll(".posei-topic-header");
+          buttons.forEach(function (btn) {
+            btn.addEventListener("click", function (e) {
               e.preventDefault();
               e.stopPropagation();
               var topicDiv = this.parentNode;
-              var isOpen = topicDiv.classList.toggle('open');
-              this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-              console.log('Accordion toggled:', this.querySelector('span').textContent, isOpen);
+              var isOpen = topicDiv.classList.toggle("open");
+              this.setAttribute("aria-expanded", isOpen ? "true" : "false");
+              console.log(
+                "Accordion toggled:",
+                this.querySelector("span").textContent,
+                isOpen
+              );
             });
           });
 
@@ -414,7 +429,7 @@
         // Try to insert accordion immediately
         if (!insertAccordion()) {
           // If not found, wait for DOM changes
-          var observer = new MutationObserver(function() {
+          var observer = new MutationObserver(function () {
             if (insertAccordion()) {
               observer.disconnect();
               console.log("Accordion inserted successfully!");
@@ -427,8 +442,8 @@
       }
 
       // Initialize when DOM is ready
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeAccordion);
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initializeAccordion);
       } else {
         initializeAccordion();
       }
@@ -2915,7 +2930,7 @@
     <script>
       self.__next_f.push([
         1,
-        '0:{"P":null,"b":"Dx32wU2YINrKDQ0xz3E_3","p":"","c":["","blog",""],"i":false,"f":[[["",{"children":["blog",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/6995b5776a6df50e.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":[["$","body",null,{"className":"__className_e8ce0c","children":["$","$L2",null,{"sx":{"overflow":"hidden"},"children":["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\\"Segoe UI\\",Roboto,Helvetica,Arial,sans-serif,\\"Apple Color Emoji\\",\\"Segoe UI Emoji\\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}],["$","$L5",null,{"gaId":"G-TR4XK597XK"}]]}]]}],{"children":["blog",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/f423cec78c22c5eb.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","div",null,{"children":[["$","$L6",null,{"gettingStarted":true}],["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}],["$","$L7",null,{"gettingStarted":true}]]}]]}],{"children":["__PAGE__",["$","$1","c",{"children":[["$","$L8",null,{"Component":"$9","searchParams":{},"params":{}}],["$","$La",null,{"children":"$Lb"}],null,["$","$Lc",null,{"children":["$Ld","$Le",["$","$Lf",null,{"promise":"$@10"}]]}]]}],{},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,["$","$1","xLtvgVKxZajocRk4v2xuZ",{"children":[["$","$L11",null,{"children":"$L12"}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],null]}],false]],"m":"$undefined","G":["$13","$undefined"],"s":false,"S":false}\n',
+        '0:{"P":null,"b":"Dx32wU2YINrKDQ0xz3E_3","p":"","c":["","blog",""],"i":false,"f":[[["",{"children":["blog",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/6995b5776a6df50e.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":[["$","body",null,{"className":"__className_e8ce0c","children":["$","$L2",null,{"sx":{"overflow":"hidden"},"children":["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\\"Segoe UI\\",Roboto,Helvetica,Arial,sans-serif,\\"Apple Color Emoji\\",\\"Segoe UI Emoji\\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}],["$","$L5",null,{"gaId":"G-TR4XK597XK"}]]}]]}],{"children":["blog",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/f423cec78c22c5eb.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","div",null,{"children":[["$","$L6",null,{"gettingStarted":true}],["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}],["$","$L7",null,{"gettingStarted":true}]]}]]}],{"children":["__PAGE__",["$","$1","c",{"children":[["$","$L8",null,{"Component":"$9","searchParams":{},"params":{}}],["$","$La",null,{"children":"$Lb"}],null,["$","$Lc",null,{"children":["$Ld","$Le",["$","$Lf",null,{"promise":"$@10"}]]}]]}],{},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,["$","$1","xLtvgVKxZajocRk4v2xuZ",{"children":[["$","$L11",null,{"children":"$L12"}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],null]}],false]],"m":"$undefined","G":["$13","$undefined"],"s":false,"S":false}\n',
       ]);
     </script>
     <script>
