@@ -230,23 +230,34 @@
         transform: rotate(180deg);
       }
       .posei-topic-content {
-        max-height: 0;
-        overflow: hidden;
         background: none;
         color: #ccc;
         font-size: 1rem;
         font-weight: 370;
         letter-spacing: -0.1px;
         line-height: 1.6;
-        padding: 0 1.5rem;
-        border-top: 1px solid #2d2930;
-        transition: max-height 0.3s, opacity 0.3s, padding 0.3s;
-        opacity: 0;
-      }
-      .posei-topic.open .posei-topic-content {
-        max-height: 500px;
-        opacity: 1;
         padding: 1rem 1.5rem 1.5rem 1.5rem;
+        border-top: 1px solid #2d2930;
+      }
+      /* Hide default details marker */
+      details > summary {
+        list-style: none;
+        cursor: pointer;
+      }
+      details > summary::-webkit-details-marker {
+        display: none;
+      }
+      /* Rotate arrow when details is open */
+      details[open] .posei-topic-arrow {
+        transform: rotate(180deg);
+      }
+      /* Ensure details content is visible when open */
+      details[open] .posei-topic-content {
+        display: block;
+      }
+      /* Hide details content when closed */
+      details:not([open]) .posei-topic-content {
+        display: none;
       }
       @media (max-width: 600px) {
         .posei-topic-header,
