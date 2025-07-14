@@ -227,7 +227,7 @@
         transform: rotate(180deg);
       }
       .posei-topic-content {
-        height: 0;
+        max-height: 0;
         overflow: hidden;
         background: none;
         color: #ccc;
@@ -237,11 +237,13 @@
         line-height: 1.6;
         padding: 0 1.5rem;
         border-top: 1px solid #2d2930;
-        transition: height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+        transition: max-height 0.3s, opacity 0.3s, padding 0.3s;
         opacity: 0;
       }
       .posei-topic.open .posei-topic-content {
-        /* height, opacity, padding will be set by JS */
+        max-height: 500px;
+        opacity: 1;
+        padding: 1rem 1.5rem 1.5rem 1.5rem;
       }
       @media (max-width: 600px) {
         .posei-topic-header,
@@ -300,7 +302,7 @@
         transform: rotate(180deg);
       }
       .posei-topic-content {
-        height: 0;
+        max-height: 0;
         overflow: hidden;
         background: none;
         color: #ccc;
@@ -310,11 +312,13 @@
         line-height: 1.6;
         padding: 0 1.5rem;
         border-top: 1px solid #2d2930;
-        transition: height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+        transition: max-height 0.3s, opacity 0.3s, padding 0.3s;
         opacity: 0;
       }
       .posei-topic.open .posei-topic-content {
-        /* height, opacity, padding will be set by JS */
+        max-height: 500px;
+        opacity: 1;
+        padding: 1rem 1.5rem 1.5rem 1.5rem;
       }
       @media (max-width: 600px) {
         .posei-topic-header,
@@ -325,6 +329,71 @@
       }
     </style>
     <script>
+      // Add global accordion toggle function
+      function toggleAccordion(btn) {
+        var topicDiv = btn.parentNode;
+        var contentDiv = topicDiv.querySelector('.posei-topic-content');
+        var isOpen = topicDiv.classList.toggle("open");
+        if (isOpen) {
+          contentDiv.style.height = contentDiv.scrollHeight + "px";
+          contentDiv.style.opacity = "1";
+          contentDiv.style.padding = "1rem 1.5rem 1.5rem 1.5rem";
+        } else {
+          contentDiv.style.height = "0";
+          contentDiv.style.opacity = "0";
+          contentDiv.style.padding = "0 1.5rem";
+        }
+        btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      }
+
+      function replaceSkeletonWithAccordion() {
+        // Find the skeleton loading area
+        var skeletonContainer = document.querySelector(".css-1bnz899");
+        if (!skeletonContainer) return false;
+
+        // Remove skeleton content
+        var gridContainer = skeletonContainer.querySelector(".css-1qo5sis");
+        if (gridContainer) {
+          gridContainer.innerHTML = "";
+        }
+
+        // Create accordion wrapper
+        var wrap = document.createElement("div");
+        wrap.className = "posei-topic-wrap";
+
+        topics.forEach(function (topic) {
+          var topicDiv = document.createElement("div");
+          topicDiv.className = "posei-topic";
+
+          // Create button
+          var btn = document.createElement("button");
+          btn.className = "posei-topic-header";
+          btn.type = "button";
+          btn.setAttribute("aria-expanded", "false");
+          btn.setAttribute("onclick", "toggleAccordion(this)");
+          btn.innerHTML =
+            "<span>" +
+            topic.title +
+            '</span><span class="posei-topic-arrow">&#9660;</span>';
+
+          // Create content
+          var contentDiv = document.createElement("div");
+          contentDiv.className = "posei-topic-content";
+          contentDiv.innerHTML = topic.content;
+
+          topicDiv.appendChild(btn);
+          topicDiv.appendChild(contentDiv);
+          wrap.appendChild(topicDiv);
+        });
+
+        // Insert into the skeleton container
+        if (gridContainer) {
+          gridContainer.appendChild(wrap);
+        }
+
+        return true;
+      }
+
       function initializeAccordion() {
         var topics = [
           {
@@ -343,80 +412,6 @@
               "This blog cuts through complexity with actionable knowledge. We break down advanced concepts, share implementation examples, and highlight features that deliver real trading edge. Our documentation covers the technical details - here we focus on applying that knowledge effectively.",
           },
         ];
-
-                            function insertAccordion() {
-            // This function is now deprecated - use replaceSkeletonWithAccordion instead
-            return false;
-          }
-
-          function replaceSkeletonWithAccordion() {
-            // Find the skeleton loading area
-            var skeletonContainer = document.querySelector(".css-1bnz899");
-            if (!skeletonContainer) return false;
-
-            // Remove skeleton content
-            var gridContainer = skeletonContainer.querySelector(".css-1qo5sis");
-            if (gridContainer) {
-              gridContainer.innerHTML = "";
-            }
-
-            // Create accordion wrapper
-            var wrap = document.createElement("div");
-            wrap.className = "posei-topic-wrap";
-
-            topics.forEach(function (topic) {
-              var topicDiv = document.createElement("div");
-              topicDiv.className = "posei-topic";
-
-              // Create button
-              var btn = document.createElement("button");
-              btn.className = "posei-topic-header";
-              btn.type = "button";
-              btn.setAttribute("aria-expanded", "false");
-              btn.innerHTML =
-                "<span>" +
-                topic.title +
-                '</span><span class="posei-topic-arrow">&#9660;</span>';
-
-              // Create content
-              var contentDiv = document.createElement("div");
-              contentDiv.className = "posei-topic-content";
-              contentDiv.innerHTML = topic.content;
-
-              topicDiv.appendChild(btn);
-              topicDiv.appendChild(contentDiv);
-              wrap.appendChild(topicDiv);
-            });
-
-            // Insert into the skeleton container
-            if (gridContainer) {
-              gridContainer.appendChild(wrap);
-            }
-
-            // Add click event listeners to each button
-            var buttons = wrap.querySelectorAll(".posei-topic-header");
-            buttons.forEach(function (btn) {
-              btn.addEventListener("click", function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                var topicDiv = this.parentNode;
-                var contentDiv = topicDiv.querySelector('.posei-topic-content');
-                var isOpen = topicDiv.classList.toggle("open");
-                if (isOpen) {
-                  contentDiv.style.height = contentDiv.scrollHeight + "px";
-                  contentDiv.style.opacity = "1";
-                  contentDiv.style.padding = "1rem 1.5rem 1.5rem 1.5rem";
-                } else {
-                  contentDiv.style.height = "0";
-                  contentDiv.style.opacity = "0";
-                  contentDiv.style.padding = "0 1.5rem";
-                }
-                this.setAttribute("aria-expanded", isOpen ? "true" : "false");
-              });
-            });
-
-            return true;
-          }
 
         // Try to replace skeleton with accordion immediately
         if (!replaceSkeletonWithAccordion()) {
