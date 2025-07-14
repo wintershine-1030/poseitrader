@@ -506,7 +506,82 @@
                           marginBottom: "50px",
                           children: "Welcome to the PoseiTrader Blog",
                         }),
-                        
+                        (0, i.jsx)(a.default, {
+                          sx: {
+                            width: "100%",
+                            maxWidth: "700px",
+                            margin: "0 auto 1.5rem auto",
+                            fontFamily: '"Inter", "IBM Plex Sans", Arial, sans-serif',
+                          },
+                          children: (0, i.jsxs)("div", {
+                            className: "posei-topic-wrap",
+                            children: [
+                              (0, i.jsxs)("details", {
+                                className: "posei-topic",
+                                children: [
+                                  (0, i.jsxs)("summary", {
+                                    className: "posei-topic-header",
+                                    children: [
+                                      (0, i.jsx)("span", {
+                                        children: "Where Strategy Meets Execution",
+                                      }),
+                                      (0, i.jsx)("span", {
+                                        className: "posei-topic-arrow",
+                                        children: "▼",
+                                      }),
+                                    ],
+                                  }),
+                                  (0, i.jsx)("div", {
+                                    className: "posei-topic-content",
+                                    children: "Discover how our open-source platform bridges the gap between backtesting and live trading. We've built PoseiTrader to give quant traders unprecedented control - test complex strategies with confidence and deploy them to real markets without code changes. The event-driven engine and portfolio-wide analysis tools provide the accuracy serious traders demand.",
+                                  }),
+                                ],
+                              }),
+                              (0, i.jsxs)("details", {
+                                className: "posei-topic",
+                                children: [
+                                  (0, i.jsxs)("summary", {
+                                    className: "posei-topic-header",
+                                    children: [
+                                      (0, i.jsx)("span", {
+                                        children: "The Flexibility You Need",
+                                      }),
+                                      (0, i.jsx)("span", {
+                                        className: "posei-topic-arrow",
+                                        children: "▼",
+                                      }),
+                                    ],
+                                  }),
+                                  (0, i.jsx)("div", {
+                                    className: "posei-topic-content",
+                                    children: "PoseiTrader isn't just powerful - it's adaptable. Every component is designed to work together seamlessly while giving you room to customize. Whether you're running simple strategies or complex multi-asset portfolios, our framework adjusts to your needs, not the other way around.",
+                                  }),
+                                ],
+                              }),
+                              (0, i.jsxs)("details", {
+                                className: "posei-topic",
+                                children: [
+                                  (0, i.jsxs)("summary", {
+                                    className: "posei-topic-header",
+                                    children: [
+                                      (0, i.jsx)("span", {
+                                        children: "Practical Insights for Real Trading",
+                                      }),
+                                      (0, i.jsx)("span", {
+                                        className: "posei-topic-arrow",
+                                        children: "▼",
+                                      }),
+                                    ],
+                                  }),
+                                  (0, i.jsx)("div", {
+                                    className: "posei-topic-content",
+                                    children: "This blog cuts through complexity with actionable knowledge. We break down advanced concepts, share implementation examples, and highlight features that deliver real trading edge. Our documentation covers the technical details - here we focus on applying that knowledge effectively.",
+                                  }),
+                                ],
+                              }),
+                            ],
+                          }),
+                        }),
                       ],
                     }),
                   }),
