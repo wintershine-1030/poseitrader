@@ -533,7 +533,7 @@
                                 className: "post",
                                 children: [
                                   (0, i.jsx)("a", {
-                                    href: "article2.html",
+                                    href: "The_Flexibility_You_Need.html",
                                     children: "The Flexibility You Need",
                                   }),
                                   (0, i.jsx)("div", {
@@ -546,7 +546,7 @@
                                 className: "post",
                                 children: [
                                   (0, i.jsx)("a", {
-                                    href: "article3.html",
+                                    href: "Practical_Insights_for_Real_Trading.html",
                                     children: "Practical Insights for Real Trading",
                                   }),
                                   (0, i.jsx)("div", {
